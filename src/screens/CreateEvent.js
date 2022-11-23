@@ -1,12 +1,30 @@
-import {View, Text, StyleSheet,TextInput} from 'react-native';
+import { useState } from 'react';
+import {View, Text, StyleSheet,TextInput, Button} from 'react-native';
 
-const CreateEvent =() =>{
-    let name ="";
+const CreateEvent =({route,navigation}) =>{
+    const{callback} =route.params;
+    const[title,setTitle]= useState("");
+    const[content,setContent] =useState("");
+    
     return(
         <View>
-            <Text style={styles2.textLabel}>Enter your name:</Text>
-            <TextInput style={styles2.textInput} placeholder="Type here"/>
-            <Text style={styles2.textLabel}> Your name is {name}</Text>
+            <Text style={styles2.textLabel}>Enter a title:</Text>
+            <TextInput style={styles2.textInput} placeholder="Type title here"
+            value={title}
+             onChangeText={(text) => {setTitle(text);}}
+            />
+            <Text style={styles2.textLabel}> Enter your content here</Text>
+            <TextInput 
+            style={styles2.textInput} 
+            multitline placeholder="Type content here"
+            value={content}
+             onChangeText={(text) => {setContent(text);}}
+            />
+            <Button title="Submit Item" onPress={() => {
+                callback({title: title, content:content});
+                navigation.pop();
+            }}
+            />
         </View>
     );
 };

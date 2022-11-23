@@ -2,7 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Home from './src/screens/Home.js';
 import Events from './src/screens/Events.js';
-import CreateEvent from './src/screens/CreateEvent.js';
+import CreateEvent from './src/screens/CreateEvent.js'; 
+import ViewAllEvents from './src/screens/ViewAllEvents'; 
+import ViewAnEvent from './src/screens/ViewAnEvent'; 
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -19,6 +21,11 @@ export default function App() {
        options={{title: "Home Page"}}
       />
       <Stack.Screen
+       name='View'
+       component={ViewAnEvent}
+       options={{title: "View one event bruv"}}
+      />
+      <Stack.Screen
        name='Events'
        component={Events}
        options={{title: "Events Page"}}
@@ -27,6 +34,11 @@ export default function App() {
        name='CreateEvent'
        component={CreateEvent}
        options={{title: "Create Events Page"}}
+      />
+      <Stack.Screen
+       name='ViewAllEvents'
+       component={ViewAllEvents}
+       options={{title: "View All Events"}}
       />
       </Stack.Navigator>
     </NavigationContainer>

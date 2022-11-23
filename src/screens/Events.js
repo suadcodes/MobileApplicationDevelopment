@@ -9,7 +9,12 @@ const Events =({navigation})=>{
           onPress={
             () => navigation.navigate('CreateEvent')}
           />
-          
+          <Button 
+          title="View Events"
+          onPress={
+            () => navigation.navigate('ViewAllEvents')}
+          />
+
         </View>
     )
 
