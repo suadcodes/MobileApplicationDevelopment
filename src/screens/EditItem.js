@@ -2,10 +2,13 @@ import { useState,useContext } from 'react';
 import {View, Text, StyleSheet,TextInput, Button} from 'react-native';
 import ItemContext from './contexts/ItemContext';
 
-const CreateEvent =({route,navigation}) =>{
-    const{create} =useContext(ItemContext);
-    const[title,setTitle]= useState("");
-    const[content,setContent] =useState("");
+const EditItem =({route,navigation}) =>{
+    
+    const{state,update} =useContext(ItemContext);
+    const{id} =route.params;
+    const currentItem = state.find((item) => item.id === id);
+    const[title,setTitle]= useState(currentItem.title);
+    const[content,setContent] =useState(currentItem.content);
     
     return(
         <View>
@@ -14,6 +17,7 @@ const CreateEvent =({route,navigation}) =>{
             value={title}
              onChangeText={(text) => {setTitle(text);}}
             />
+            
             <Text style={styles2.textLabel}> Enter your content here</Text>
             <TextInput 
             style={styles2.textInput} 
@@ -21,8 +25,8 @@ const CreateEvent =({route,navigation}) =>{
             value={content}
              onChangeText={(text) => {setContent(text);}}
             />
-            <Button title="Submit Item" onPress={() => {
-                create(title,content, ()=> navigation.pop());
+            <Button title="Update Item" onPress={() => {
+                update(currentItem.id,title, content, currentItem.date,()=> navigation.pop())
             }}
             />
         </View>
@@ -44,4 +48,4 @@ const styles2 =StyleSheet.create({
 });
  
 
- export default CreateEvent;
+ export default EditItem;

@@ -5,13 +5,15 @@ import Events from './src/screens/Events.js';
 import CreateEvent from './src/screens/CreateEvent.js'; 
 import ViewAllEvents from './src/screens/ViewAllEvents'; 
 import ViewAnEvent from './src/screens/ViewAnEvent'; 
+import { ItemProvider } from './src/screens/contexts/ItemContext.js';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import EditItem from './src/screens/EditItem.js';
 
 export default function App() {
   const Stack =createNativeStackNavigator();
   return (
-    <>
+    <ItemProvider>
     <Text style={styles.heading} >Gordon's 18 Club </Text>
     <NavigationContainer>
       <Stack.Navigator initialRouteName ='home'>
@@ -19,6 +21,11 @@ export default function App() {
        name='Home'
        component={Home}
        options={{title: "Home Page"}}
+      />
+       <Stack.Screen
+       name='Edit'
+       component={EditItem}
+       options={{title: "Edit Item"}}
       />
       <Stack.Screen
        name='View'
@@ -42,7 +49,7 @@ export default function App() {
       />
       </Stack.Navigator>
     </NavigationContainer>
-    </>
+    </ItemProvider>
   );
 }
 

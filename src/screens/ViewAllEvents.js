@@ -1,48 +1,17 @@
 import{View,Text,StyleSheet,FlatList,Pressable} from "react-native";
-import {useEffect, useReducer } from 'react';
+import {useContext, useEffect } from 'react';
 import{MaterialIcons} from '@expo/vector-icons'
-
-
-const reducer = (state, action) => {
-    switch(action.type) {
-        case 'Create':
-            return [
-                ...state,
-                {
-                    id: Math.floor(Math.random()*99999),
-                    title:action.payload.title,
-                    content:action.payload.content,
-                    date: new Date()
-                }
-                 ];
-        case 'Update':
-                return state.map((e) => {
-                        if(e.id === action.payload.id) {
-                            return action.payload;
-                        }else{
-                            return e;
-                        }
-                    });
-        case 'Delete':
-                return state.filter((e)=> e.id !== action.payload.id);            
-                        
-                 default:
-                    return state;
-}
-};
+import ItemContext from './contexts/ItemContext';
 
 const ViewAllEvents = ({navigation}) => {
-    const[state, dispatch]= useReducer(reducer,dummyData);
-
+    const {state, remove} =useContext(ItemContext);
+   
     useEffect(()=>{
         navigation.setOptions({
             headerRight: () => (
                 <>
-                <Pressable onPress={() => navigation.navigate('CreateEvent',{
-                    callback:(payload) => {
-                        dispatch({type: 'Create',payload:payload})
-                    }
-                    })
+                <Pressable onPress={() => navigation.navigate('CreateEvent'
+                    )
                     }>
              <MaterialIcons name="add" size={24} color="black"/>
              </Pressable>
@@ -76,6 +45,12 @@ const ViewAllEvents = ({navigation}) => {
                                       </Text>
                                 </View>
                              <Text style={styles.titleText}>{item.title}</Text>
+                             <Pressable
+                                onPress={()=> {
+                                    remove(item.id);
+                                }}>
+                                    <MaterialIcons name="delete" size={38} color="red"/>
+                             </Pressable>
                             </View>
                         </Pressable>
                     )
@@ -86,22 +61,6 @@ const ViewAllEvents = ({navigation}) => {
     );
 
 };
-
-const dummyData = [
-{
-    id: -1,
-    title:"This is my first item",
-    content : "first id innit",
-    date :new Date()
-},
-{
-    id: -2,
-    title:"This is my 2nd item",
-    content : "2nd id innit",
-    date :new Date()
-}
-]
-
 
 
 const styles =StyleSheet.create({

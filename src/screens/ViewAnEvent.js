@@ -1,6 +1,6 @@
-import {View, Text} from "react-native";
+import {View, Text,Button} from "react-native";
 
-const ViewItemScreen = ({route}) =>{
+const ViewItemScreen = ({route,navigation}) =>{
  const{id,title,content, date} = route.params;
  
     return(
@@ -10,6 +10,9 @@ const ViewItemScreen = ({route}) =>{
             <Text>content: {content}</Text>
             <Text>Date: {new Date(date).toLocaleDateString()}</Text>
             <Text>Time: {new Date(date).toLocaleTimeString()}</Text>
+            <Button title="Edit Item" onPress={()=> {
+                navigation.navigate('Edit',{ id:id});
+            }} />
         </View>
     )
 }
