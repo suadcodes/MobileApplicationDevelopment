@@ -18,6 +18,6 @@ const Events =({navigation})=>{
         </View>
     )
 
-}
+};
 
 export default Events;

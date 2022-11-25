@@ -3,21 +3,19 @@ import {useContext, useEffect } from 'react';
 import{MaterialIcons} from '@expo/vector-icons'
 import ItemContext from './contexts/ItemContext';
 
+
 const ViewAllEvents = ({navigation}) => {
     const {state, remove} =useContext(ItemContext);
    
-    useEffect(()=>{
+    useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
                 <>
-                <Pressable onPress={() => navigation.navigate('CreateEvent'
-                    )
-                    }>
-             <MaterialIcons name="add" size={24} color="black"/>
-             </Pressable>
-             
-         </>
-             )
+                <Pressable onPress={() => navigation.navigate('CreateEvent')}>
+                <MaterialIcons name="add" size={24} color="black"/>
+                </Pressable>
+               </>
+            )
         })
     },[state]);
     return (
@@ -30,21 +28,38 @@ const ViewAllEvents = ({navigation}) => {
                         <Pressable onPress={() =>navigation.navigate('View',
                         {
                             id: item.id,
-                            title:item.title,
-                            content: item.content,
-                            date: item.date.toUTCString()
+                            rink2: item.rink2,
+                            teamOne: item.teamOne,
+                            teamTwo: item.teamTwo,
+                            competition:item.competition,
+                            date: item.date,
+
+                            t1player1: item.t1player1,
+                            t2player1: item.t2player1,
+
+                            t1player2: item.t1player2,
+                            t2player2: item.t2player2,
+
+                            t1player3: item.t1player3,
+                            t2player3: item.t2player3,
+
+                            t1player4: item.t1player4,
+                            t2player4: item.t2player4,
+
+                            
                         }
                         )}>
                             <View style ={styles.itemContainer}>
-                                <View style={styles.dataContainer}>
-                                    <Text style={styles.dataText} >
-                                       {item.date.toLocaleDateString()}
-                                    </Text>
-                                      <Text>
-                                      {item.date.toLocaleTimeString()}
-                                      </Text>
-                                </View>
-                             <Text style={styles.titleText}>{item.title}</Text>
+
+                             <View style={styles.dataContainer}>
+                                <Text style={styles.dataText}>
+                               {item.date.toLocaleDateString()}
+                                </Text>
+                             </View>
+                             <Text style={styles.titleText}>Competition:{item.competition}</Text>
+                             <Text style={styles.titleText}>Rink:{item.rink2}</Text>
+                            
+
                              <Pressable
                                 onPress={()=> {
                                     remove(item.id);
@@ -53,7 +68,7 @@ const ViewAllEvents = ({navigation}) => {
                              </Pressable>
                             </View>
                         </Pressable>
-                    )
+                    );
                 }}
             />
         </View>
